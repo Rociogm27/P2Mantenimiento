@@ -1,0 +1,208 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > Triangle</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">org.example</a>
+</div>
+
+<h1>Coverage Summary for Class: Triangle (org.example)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Triangle</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    72%
+  </span>
+  <span class="absValue">
+    (18/25)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">Triangle$TriangleType</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/4)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    75,9%
+  </span>
+  <span class="absValue">
+    (22/29)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package org.example;
+&nbsp;//package org.mps.triangle;
+&nbsp;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.Collections;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;/**
+&nbsp; * Class providing a getType() method that, given the length of the sides of a triangle,
+&nbsp; * returns its type: equilateral, isosceles, or scalene
+&nbsp; *
+&nbsp; * @author Antonio J. Nebro
+&nbsp; */
+<b class="fc">&nbsp;public class Triangle {</b>
+&nbsp;
+<b class="fc">&nbsp;    public enum TriangleType {</b>
+<b class="fc">&nbsp;        SCALENE,</b>
+<b class="fc">&nbsp;        ISOSCELES,</b>
+<b class="fc">&nbsp;        EQUILATERAL;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public TriangleType getType(double side1, double side2, double side3) {
+&nbsp;        TriangleType result;
+&nbsp;
+&nbsp;        // IMPLEMENTATION 1
+<b class="fc">&nbsp;</b>
+<b class="fc">&nbsp;        if (((side1 == 0) || (side2 == 0)) || (side3 == 0)) {</b>
+<b class="fc">&nbsp;            throw new RuntimeException(&quot;At least one side has length 0&quot;);</b>
+&nbsp;        }
+<b class="fc">&nbsp;        if (((side1 &lt; 0) || (side2 &lt; 0)) || (side3 &lt; 0)) {</b>
+<b class="fc">&nbsp;            throw new RuntimeException(&quot;At least one side has a negative length&quot;);</b>
+&nbsp;        }
+<b class="fc">&nbsp;        if ((side1 + side2 &lt;= side3) || (side1 + side3 &lt;= side2) || (side2 + side3 &lt;= side1)) {</b>
+<b class="fc">&nbsp;            throw new RuntimeException(&quot;The side lengths do not correspond to a valid triangle&quot;);</b>
+<b class="nc">&nbsp;        }</b>
+<b class="fc">&nbsp;        if (side1 == side2) {</b>
+<b class="fc">&nbsp;            if (side2 == side3) {</b>
+<b class="fc">&nbsp;                result = TriangleType.EQUILATERAL;</b>
+<b class="nc">&nbsp;            }else{</b>
+<b class="fc">&nbsp;                result = TriangleType.ISOSCELES;</b>
+&nbsp;            }
+<b class="nc">&nbsp;        }else{</b>
+<b class="fc">&nbsp;            if (side2 != side3) {</b>
+<b class="fc">&nbsp;                if (side1 != side3) {</b>
+<b class="fc">&nbsp;                    result = TriangleType.SCALENE;</b>
+<b class="nc">&nbsp;                }else{</b>
+<b class="fc">&nbsp;                    return TriangleType.ISOSCELES;</b>
+&nbsp;                }
+<b class="nc">&nbsp;            }else{</b>
+<b class="fc">&nbsp;                result = TriangleType.ISOSCELES;</b>
+&nbsp;            }
+<b class="nc">&nbsp;        }</b>
+&nbsp;/*
+&nbsp;    // IMPLEMENTATION 2
+&nbsp;    var sides = new ArrayList&lt;&gt;(List.of(side1, side2, side3));
+&nbsp;    Collections.sort(sides);
+&nbsp;
+&nbsp;    if (sides.stream().anyMatch(i -&gt; i == 0.0)) {
+&nbsp;      throw new RuntimeException(&quot;One size has length 0&quot;);
+&nbsp;    }
+&nbsp;
+&nbsp;    if (sides.stream().anyMatch(i -&gt; i &lt; 0.0)) {
+&nbsp;      throw new RuntimeException(&quot;One size has a negative length&quot;);
+&nbsp;    }
+&nbsp;
+&nbsp;    if ((side1 + side2 &lt;= side3) || (side1 + side3 &lt;= side2) || (side2 + side3 &lt;= side1)) {
+&nbsp;      throw new RuntimeException(&quot;The side lengths do not correspond to a valid triangle&quot;) ;
+&nbsp;    }
+&nbsp;
+&nbsp;    var distinctValues = sides.stream().distinct().count() ;
+&nbsp;    result = switch ((int) distinctValues) {
+&nbsp;      case 3 -&gt; TriangleType.SCALENE;
+&nbsp;      case 1 -&gt; TriangleType.EQUILATERAL;
+&nbsp;      default -&gt; TriangleType.ISOSCELES;
+&nbsp;    };
+&nbsp;*/
+<b class="fc">&nbsp;        return result;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-02-14 12:02</div>
+</div>
+</body>
+</html>
